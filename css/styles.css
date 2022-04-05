@@ -1,3 +1,105 @@
+/***** COLOR PALETTE *****/
+/* #102346 */
+/* #ef7b41 */
+/* #53beca */
+/* #a8ddea */
+/* #c9e9f5 */
+
 * {
   box-sizing: border-box;
+}
+
+body {
+  background-color: #102346;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+
+.header {
+  height: 20vh;
+  background-image: url("/images/forest.jpg");
+  background-color: #102346;
+  background-size: cover;
+  background-position: 10% 35%;
+  width: 100%;
+}
+
+.content {
+  text-align: center;
+  padding: 48px 16px 48px 16px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.new-task-input {
+  height: 36px;
+  padding-left: 12px;
+  width: 350px;
+  background-color: #e7e8eb;
+  border: none;
+  border-radius: 5px 0 0 5px;
+}
+
+.add-task-btn {
+  background-color: #ef7b41;
+  color: #992b20;
+  height: 36px;
+  width: 36px;
+  font-size: 26px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+}
+
+.heading {
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-top: 48px;
+}
+
+.task-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #8791a1;
+  color: #0b182f;
+  padding: 0 12px 0 12px;
+}
+
+.task-text {
+  text-align: start;
+}
+
+.task-heading-text {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+.task-date-text {
+  font-size: 12px;
+  color: #0b182fb9;
+  margin: 6px 0 18px 0;
+}
+
+.footer-btn-section {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+}
+
+.footer-btn {
+  background-color: #ef7b41;
+  color: #6b1e15;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px 8px 16px;
 }

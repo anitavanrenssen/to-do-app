@@ -6,8 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do App</title>
 
-    <link rel="styleshhet" type="text/css" href="css/styles.css" />
-    <script src="js/script.js" refer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script src="js/script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <span></span>
+    </header>
+
+    <main class="content">
+      <form class="form">
+        <input type="text" class="new-task-input" placeholder="Add new task" />
+        <button type="submit" class="add-task-btn">+</button>
+      </form>
+
+      <h2 class="heading">Your Tasks</h2>
+
+      <section>
+        <ul class="task-list">
+          <li class="list-item">
+            <ion-icon name="square-outline"></ion-icon>
+            <div class="task-text">
+              <p class="task-heading-text">Project submission</p>
+              <p class="task-date-text">11 April 2022, 11:59 PM</p>
+            </div>
+            <div>
+              <ion-icon name="pencil-outline"></ion-icon>
+              <ion-icon name="close-outline"></ion-icon>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="footer-btn-section">
+        <button class="footer-btn">Clear List</button>
+        <button class="footer-btn">Sort A - Z</button>
+      </section>
+    </main>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
 </html>
