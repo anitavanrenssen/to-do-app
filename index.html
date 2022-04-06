@@ -6,31 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do App</title>
 
+    <!-- Link to Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Link to CSS Stylesheet -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <!-- Link to JS file -->
     <script src="js/script.js" defer></script>
   </head>
+
   <body>
     <header class="header">
       <span></span>
     </header>
 
     <main class="content">
-      <form class="form">
-        <input type="text" class="new-task-input" placeholder="Add new task" />
-        <button type="submit" class="add-task-btn">+</button>
-      </form>
+      <dialog class="newtask-dialog" id="dialog-newtask">
+        <h2>Add new task</h2>
+        <form class="form">
+          <input
+            type="text"
+            class="new-task-input"
+            id="input-new-task"
+            placeholder="Add new task"
+          />
+          <input
+            type="datetime-local"
+            class="new-taskdate-input"
+            id="input-new-taskdate"
+            placeholder="Add due date"
+          />
+          <button type="submit" class="add-task-btn" id="btn-addnewtask">
+            +
+          </button>
+          <button type="button" class="exit-btn" id="btn-exit">Exit</button>
+        </form>
+      </dialog>
+
+      <button type="submit" class="add-task-btn" id="btn-addtask">+</button>
 
       <h2 class="heading">Your Tasks</h2>
 
       <section>
         <ul class="task-list">
-          <li class="list-item">
+          <!-- <li class="list-item">
             <ion-icon name="square-outline"></ion-icon>
             <div class="task-text">
               <p class="task-heading-text">Project submission</p>
@@ -40,11 +63,11 @@
               <ion-icon name="pencil-outline"></ion-icon>
               <ion-icon name="close-outline"></ion-icon>
             </div>
-          </li>
+          </li> -->
         </ul>
       </section>
 
-      <section class="footer-btn-section">
+      <section class="footer-btn-section" id="btns-footer-section">
         <button class="footer-btn">Clear List</button>
         <button class="footer-btn">Sort A - Z</button>
       </section>
