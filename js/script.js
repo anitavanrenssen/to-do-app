@@ -7,6 +7,8 @@ const dialog = document.getElementById("dialog-newtask");
 const addNewTaskBtn = document.getElementById("btn-addnewtask");
 const footerBtns = document.getElementById("btns-footer-section");
 const taskList = document.getElementById("list-tasks");
+const taskInputField = document.getElementById("input-new-task");
+const taskdateInputField = document.getElementById("input-new-taskdate");
 /********************
  * EVENT LISTENERS
  ********************/
@@ -63,22 +65,27 @@ function addTask(e) {
   // store user input into variables
   let userInputTask = document.getElementById("input-new-task").value;
   let userInputDate = document.getElementById("input-new-taskdate").value;
-  let newtaskId = Math.floor(Math.random() * 1000000);
+  const noValue = document.getElementById("no-value");
+  let newtaskId = new Date().getTime().toString();
 
-  // instantiate new object
-  let newTask = new Task(newtaskId, userInputTask, userInputDate);
+  // input instruction set to none
+  noValue.innerHTML = "";
 
-  // create new list element
-  const listElement = document.createElement("LI");
-  // add class
-  listElement.classList.add("list-item");
-  // add id
-  const attr = document.createAttribute("data-id");
-  attr.userInputTask = newtaskId;
-  listElement.setAttributeNode(attr);
+  if (userInputTask !== "" && userInputDate !== "") {
+    // instantiate new object
+    let newTask = new Task(newtaskId, userInputTask, userInputDate);
 
-  // add user input to list element
-  listElement.innerHTML = `<ion-icon name="square-outline"></ion-icon>
+    // create new list element
+    const listElement = document.createElement("LI");
+    // add class
+    listElement.classList.add("list-item");
+    // add id
+    const attr = document.createAttribute("data-id");
+    attr.value = newtaskId;
+    listElement.setAttributeNode(attr);
+
+    // add user input to list element
+    listElement.innerHTML = `<ion-icon name="square-outline"></ion-icon>
   <div class="task-text">
     <p class="task-heading-text">${newTask.taskname}</p>
     <p class="task-date-text">${newTask.taskdate}</p>
@@ -88,14 +95,23 @@ function addTask(e) {
     <ion-icon name="close-outline"></ion-icon>
   </div>`;
 
-  // add list element to DOM
-  taskList.appendChild(listElement);
+    // add list element to DOM
+    taskList.appendChild(listElement);
 
-  // modal close
-  dialog.close();
+    // modal close
+    dialog.close();
 
-  // display footer buttons
-  footerBtns.style.display = "block";
+    // display footer buttons
+    footerBtns.style.display = "block";
+  } else if (userInputTask === "" && userInputDate === "") {
+    noValue.innerHTML = "Please enter a task and date";
+  } else if (userInputTask === "" && userInputDate !== "") {
+    noValue.innerHTML = "Please enter a task";
+  } else if (userInputTask !== "" && userInputDate === "") {
+    noValue.innerHTML = "Please enter a date";
+  } else {
+    noValue.innerHTML = "";
+  }
 }
 
 /********************

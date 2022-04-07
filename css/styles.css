@@ -111,4 +111,5 @@ body {
   border: none;
   border-radius: 5px;
   padding: 8px 16px 8px 16px;
+  cursor: pointer;
 }

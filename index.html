@@ -33,13 +33,16 @@
             class="new-task-input"
             id="input-new-task"
             placeholder="Add new task"
+            onfocus="this.value=''"
           />
+
           <input
             type="datetime-local"
             class="new-taskdate-input"
             id="input-new-taskdate"
-            placeholder="Add due date"
+            onfocus="this.value=''"
           />
+          <span id="no-value"></span>
           <button type="submit" class="add-task-btn" id="btn-addnewtask">
             +
           </button>
