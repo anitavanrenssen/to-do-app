@@ -6,6 +6,8 @@ const exitBtn = document.getElementById("btn-exit");
 const dialog = document.getElementById("dialog-newtask");
 const addNewTaskBtn = document.getElementById("btn-addnewtask");
 const footerBtns = document.getElementById("btns-footer-section");
+const clearListBtn = document.getElementById("clearlist-btn");
+const sortListBtn = document.getElementById("sortlist-btn");
 const taskList = document.getElementById("list-tasks");
 const taskInputField = document.getElementById("input-new-task");
 const taskdateInputField = document.getElementById("input-new-taskdate");
@@ -24,6 +26,9 @@ exitBtn.addEventListener("click", () => {
 
 // add new task
 addNewTaskBtn.addEventListener("click", addTask);
+
+// clear task list
+clearListBtn.addEventListener("click", clearList);
 
 /********************
  * CLASSES
@@ -112,6 +117,19 @@ function addTask(e) {
   } else {
     noValue.innerHTML = "";
   }
+}
+
+function clearList() {
+  const tasksAll = document.querySelectorAll(".list-item");
+
+  if (tasksAll.length > 0) {
+    tasksAll.forEach(function (listElement) {
+      taskList.removeChild(listElement);
+    });
+  }
+
+  // hide footer buttons
+  footerBtns.style.display = "none";
 }
 
 /********************
