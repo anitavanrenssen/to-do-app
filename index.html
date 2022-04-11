@@ -26,21 +26,19 @@
 
     <main class="content">
       <dialog class="newtask-dialog" id="dialog-newtask">
-        <h2>Add new task</h2>
+        <h2 id="modal-heading">Add new task</h2>
         <form class="form">
           <input
             type="text"
             class="new-task-input"
             id="input-new-task"
             placeholder="Add new task"
-            onfocus="this.value=''"
           />
 
           <input
             type="datetime-local"
             class="new-taskdate-input"
             id="input-new-taskdate"
-            onfocus="this.value=''"
           />
           <span id="no-value"></span>
           <button type="submit" class="add-task-btn" id="btn-addnewtask">

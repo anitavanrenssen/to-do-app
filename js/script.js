@@ -9,6 +9,7 @@ const footerBtns = document.getElementById("btns-footer-section");
 const clearListBtn = document.getElementById("clearlist-btn");
 const sortListBtn = document.getElementById("sortlist-btn");
 const taskList = document.getElementById("list-tasks");
+const modalHeading = document.getElementById("modal-heading");
 const taskInputField = document.getElementById("input-new-task");
 const taskdateInputField = document.getElementById("input-new-taskdate");
 let taskArray = [];
@@ -27,8 +28,6 @@ exitBtn.addEventListener("click", () => {
 
 // add new task
 addNewTaskBtn.addEventListener("click", addTask);
-
-// task completed
 
 // clear task list
 clearListBtn.addEventListener("click", clearList);
@@ -68,6 +67,12 @@ class Task {
   }
 }
 
+// edit option
+let editTaskEl = "";
+let editTaskDateEl = "";
+let editFlag = false;
+let editID = "";
+
 /********************
  * FUNCTIONS
  ********************/
@@ -82,7 +87,7 @@ function addTask(e) {
   // input instruction set to none
   noValue.innerHTML = "";
 
-  if (userInputTask !== "" && userInputDate !== "") {
+  if (userInputTask !== "" && userInputDate !== "" && !editFlag) {
     // instantiate new object
     let newTask = new Task(newtaskId, userInputTask, userInputDate);
     // add object to task array
@@ -99,10 +104,10 @@ function addTask(e) {
 
     // add user input to list element
     listElement.innerHTML = `<ion-icon name="square-outline"></ion-icon>
-  <div class="task-text">
+  
     <p class="task-heading-text">${newTask.taskname}</p>
     <p class="task-date-text">${newTask.taskdate}</p>
-  </div>
+  
   <div>
     <button id="edittask-btn"><ion-icon name="pencil-outline"  class="edittask-btn"></ion-icon></button>
     <button id="deletetask-btn"><ion-icon name="trash" class="deletetask-btn"></ion-icon></button>
@@ -126,6 +131,17 @@ function addTask(e) {
 
     // display footer buttons
     footerBtns.style.display = "block";
+
+    // add to local storage
+    addToLocalStorage(newtaskId, newTask);
+    setBackToDefault();
+  } else if (userInputTask !== "" && editFlag) {
+    editTaskEl.innerHTML = userInputTask;
+    editTaskDateEl.innerHTML = userInputDate;
+
+    // modal close
+    dialog.close();
+    setBackToDefault();
   } else if (userInputTask === "" && userInputDate === "") {
     noValue.innerHTML = "Please enter a task and date";
   } else if (userInputTask === "" && userInputDate !== "") {
@@ -144,6 +160,7 @@ function clearList() {
     tasksAll.forEach(function (listElement) {
       taskList.removeChild(listElement);
     });
+    setBackToDefault();
   }
 
   // hide footer buttons
@@ -162,16 +179,42 @@ function deleteTask(e) {
   if (taskList.children.length === 0) {
     footerBtns.style.display = "none";
   }
+  setBackToDefault();
 }
 
-function editTask() {
-  console.log("task edited");
+function editTask(e) {
+  const element = e.currentTarget.parentElement.parentElement;
+  editTaskEl =
+    e.currentTarget.parentElement.previousElementSibling.previousElementSibling;
+  editTaskDateEl = e.currentTarget.parentElement.previousElementSibling;
+  taskInputField.value = editTaskEl.innerHTML;
+  taskdateInputField.value = editTaskDateEl.innerHTML;
+  modalHeading.innerHTML = "Edit task";
+  editId = element.dataset.id;
+  editFlag = true;
+  dialog.showModal();
+  setBackToDefault();
 }
+
+// set back to default
+// function setBackToDefault() {
+//   userInputTask.value = "";
+//   userInputDate.value = "";
+//   editFlag = false;
+//   editID = "";
+// }
 
 /********************
  * LOCAL STORAGE
  ********************/
+function addToLocalStorage(id, value) {
+  localStorage.setItem(id, JSON.stringify(value));
+  JSON.parse(localStorage.getItem(id));
+}
 
+function removeFromLocalStorage(id) {}
+
+function editLocalStorage(id, value) {}
 /********************
  * SETUP ITEMS
  ********************/
