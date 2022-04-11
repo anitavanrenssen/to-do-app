@@ -35,6 +35,9 @@ clearListBtn.addEventListener("click", clearList);
 // sort tasks alphabetically
 sortListBtn.addEventListener("click", sortList);
 
+// load tasks
+window.addEventListener("DOMContentLoaded", setupItems);
+
 /********************
  * CLASSES
  ********************/
@@ -134,6 +137,8 @@ function addTask(e) {
 
     // add to local storage
     addToLocalStorage(newtaskId, newTask);
+
+    // set back to default
     setBackToDefault();
   } else if (userInputTask !== "" && editFlag) {
     editTaskEl.innerHTML = userInputTask;
@@ -141,7 +146,8 @@ function addTask(e) {
 
     // modal close
     dialog.close();
-    setBackToDefault();
+    editLocalStorage(editId, newTask);
+    // setBackToDefault();
   } else if (userInputTask === "" && userInputDate === "") {
     noValue.innerHTML = "Please enter a task and date";
   } else if (userInputTask === "" && userInputDate !== "") {
@@ -160,7 +166,8 @@ function clearList() {
     tasksAll.forEach(function (listElement) {
       taskList.removeChild(listElement);
     });
-    setBackToDefault();
+    // setBackToDefault();
+    localStorage.removeItem("taskList");
   }
 
   // hide footer buttons
@@ -175,11 +182,14 @@ function sortList() {
 
 function deleteTask(e) {
   const element = e.currentTarget.parentElement.parentElement;
+  const id = element.dataset.id;
   taskList.removeChild(element);
   if (taskList.children.length === 0) {
     footerBtns.style.display = "none";
   }
   setBackToDefault();
+  // remove from local storage
+  removeFromLocalStorage(id);
 }
 
 function editTask(e) {
@@ -208,13 +218,39 @@ function editTask(e) {
  * LOCAL STORAGE
  ********************/
 function addToLocalStorage(id, value) {
-  localStorage.setItem(id, JSON.stringify(value));
-  JSON.parse(localStorage.getItem(id));
+  const task = { id, value };
+  let todoTasks = getLocalStorage();
+  console.log(todoTasks);
+  todoTasks.push(task);
+  localStorage.setItem("taskList", JSON.stringify(todoTasks));
 }
 
-function removeFromLocalStorage(id) {}
+function removeFromLocalStorage(id) {
+  let todoTasks = getLocalStorage();
 
-function editLocalStorage(id, value) {}
+  todoTasks = todoTasks.filter(function (todoTask) {
+    if (todoTask.id !== id) {
+      return todoTask;
+    }
+  });
+  localStorage.setItem("taskList", JSON.stringify(todoTasks));
+}
+
+function editLocalStorage(id, value) {
+  let todoTasks = getLocalStorage();
+  todoTasks = todoTasks.map(function (todoTask) {
+    if (todoTask.id === id) {
+      todoTask.value = value;
+    }
+    return todoTask;
+  });
+}
+function getLocalStorage() {
+  return localStorage.getItem("taskList")
+    ? JSON.parse(localStorage.getItem("taskList"))
+    : [];
+}
 /********************
  * SETUP ITEMS
  ********************/
+function setupItems() {}
