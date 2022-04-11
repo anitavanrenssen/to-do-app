@@ -104,16 +104,21 @@ function addTask(e) {
     <p class="task-date-text">${newTask.taskdate}</p>
   </div>
   <div>
-    <ion-icon name="pencil-outline"  class="deletetask-btn" id="deletetask-btn"></ion-icon>
-    <ion-icon name="close-outline"  class="edittask-btn" id="edittask-btn"></ion-icon>
+    <button id="edittask-btn"><ion-icon name="pencil-outline"  class="edittask-btn"></ion-icon></button>
+    <button id="deletetask-btn"><ion-icon name="trash" class="deletetask-btn"></ion-icon></button>
   </div>`;
+
+    const deleteBtn = listElement.querySelector("#deletetask-btn");
+    const editBtn = listElement.querySelector("#edittask-btn");
+    deleteBtn.addEventListener("click", deleteTask);
+    editBtn.addEventListener("click", editTask);
 
     // add list element to DOM
     taskList.appendChild(listElement);
 
     // task completed
     listElement.addEventListener("click", function () {
-      listElement.classList.add("list-item-completed");
+      listElement.classList.toggle("list-item-completed");
     });
 
     // modal close
@@ -149,6 +154,18 @@ function sortList() {
   [...taskList.children]
     .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
     .forEach((node) => taskList.appendChild(node));
+}
+
+function deleteTask(e) {
+  const element = e.currentTarget.parentElement.parentElement;
+  taskList.removeChild(element);
+  if (taskList.children.length === 0) {
+    footerBtns.style.display = "none";
+  }
+}
+
+function editTask() {
+  console.log("task edited");
 }
 
 /********************
