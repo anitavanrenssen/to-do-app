@@ -11,6 +11,7 @@ const sortListBtn = document.getElementById("sortlist-btn");
 const taskList = document.getElementById("list-tasks");
 const taskInputField = document.getElementById("input-new-task");
 const taskdateInputField = document.getElementById("input-new-taskdate");
+let taskArray = [];
 /********************
  * EVENT LISTENERS
  ********************/
@@ -27,8 +28,13 @@ exitBtn.addEventListener("click", () => {
 // add new task
 addNewTaskBtn.addEventListener("click", addTask);
 
+// task completed
+
 // clear task list
 clearListBtn.addEventListener("click", clearList);
+
+// sort tasks alphabetically
+sortListBtn.addEventListener("click", sortList);
 
 /********************
  * CLASSES
@@ -79,6 +85,8 @@ function addTask(e) {
   if (userInputTask !== "" && userInputDate !== "") {
     // instantiate new object
     let newTask = new Task(newtaskId, userInputTask, userInputDate);
+    // add object to task array
+    taskArray.push(newTask);
 
     // create new list element
     const listElement = document.createElement("LI");
@@ -96,12 +104,17 @@ function addTask(e) {
     <p class="task-date-text">${newTask.taskdate}</p>
   </div>
   <div>
-    <ion-icon name="pencil-outline"></ion-icon>
-    <ion-icon name="close-outline"></ion-icon>
+    <ion-icon name="pencil-outline"  class="deletetask-btn" id="deletetask-btn"></ion-icon>
+    <ion-icon name="close-outline"  class="edittask-btn" id="edittask-btn"></ion-icon>
   </div>`;
 
     // add list element to DOM
     taskList.appendChild(listElement);
+
+    // task completed
+    listElement.addEventListener("click", function () {
+      listElement.classList.add("list-item-completed");
+    });
 
     // modal close
     dialog.close();
@@ -130,6 +143,12 @@ function clearList() {
 
   // hide footer buttons
   footerBtns.style.display = "none";
+}
+
+function sortList() {
+  [...taskList.children]
+    .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
+    .forEach((node) => taskList.appendChild(node));
 }
 
 /********************

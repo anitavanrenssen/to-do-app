@@ -79,6 +79,12 @@ body {
   background-color: #8791a1;
   color: #0b182f;
   padding: 0 12px 0 12px;
+  cursor: pointer;
+}
+
+.list-item-completed {
+  text-decoration: line-through;
+  background-color: #6c7481;
 }
 
 .task-text {
@@ -94,6 +100,11 @@ body {
   font-size: 12px;
   color: #0b182fb9;
   margin: 6px 0 18px 0;
+}
+
+.deletetask-btn,
+.edittask-btn {
+  cursor: pointer;
 }
 
 .footer-btn-section {
