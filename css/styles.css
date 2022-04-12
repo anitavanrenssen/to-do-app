@@ -1,24 +1,18 @@
-/***** COLOR PALETTE *****/
-/* #102346 */
-/* #ef7b41 */
-/* #53beca */
-/* #a8ddea */
-/* #c9e9f5 */
-
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 body {
-  background-color: #102346;
+  background-color: #a68a64;
   font-family: "Roboto", sans-serif;
   color: #fff;
 }
 
 .header {
   height: 20vh;
-  background-image: url("/images/forest.jpg");
-  background-color: #102346;
+  background-image: url("/images/desk.jpg");
+  background-color: #a68a64;
   background-size: cover;
   background-position: 10% 35%;
   width: 100%;
@@ -51,8 +45,8 @@ body {
 }
 
 .add-task-btn {
-  background-color: #ef7b41;
-  color: #992b20;
+  background-color: #6b3620;
+  color: #fff;
   height: 36px;
   width: 36px;
   font-size: 26px;
@@ -76,7 +70,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #8791a1;
+  background-color: #b6ad90;
   color: #0b182f;
   padding: 0 12px 0 12px;
   cursor: pointer;
@@ -84,7 +78,7 @@ body {
 
 .list-item-completed {
   text-decoration: line-through;
-  background-color: #6c7481;
+  background-color: #88816c;
 }
 
 .task-text {
@@ -117,8 +111,8 @@ body {
 }
 
 .footer-btn {
-  background-color: #ef7b41;
-  color: #6b1e15;
+  background-color: #6b3620;
+  color: #fff;
   border: none;
   border-radius: 5px;
   padding: 8px 16px 8px 16px;

@@ -36,7 +36,7 @@ clearListBtn.addEventListener("click", clearList);
 sortListBtn.addEventListener("click", sortList);
 
 // load tasks
-window.addEventListener("DOMContentLoaded", setupItems);
+// window.addEventListener("DOMContentLoaded", setupTasks);
 
 /********************
  * CLASSES
@@ -253,4 +253,11 @@ function getLocalStorage() {
 /********************
  * SETUP ITEMS
  ********************/
-function setupItems() {}
+// function setupTasks() {
+//   let todoTasks = getLocalStorage();
+//   if(todoTasks.length > 0){
+
+//   }
+// }
+
+// function createTask
