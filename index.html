@@ -17,6 +17,17 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <!-- Link to JS file -->
     <script src="js/script.js" defer></script>
+    <!-- Link to Ionicons-->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      defer
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      defer
+    ></script>
   </head>
 
   <body>
@@ -54,17 +65,20 @@
 
       <section>
         <ul class="task-list" id="list-tasks">
-          <!-- <li class="list-item">
+          <!-- <div class="list-task-text">
             <ion-icon name="square-outline"></ion-icon>
-  <div class="task-text">
-    <p class="task-heading-text">${newTask.taskname}</p>
-    <p class="task-date-text">${newTask.taskdate}</p>
-  </div>
-  <div>
-    <button><ion-icon name="pencil-outline"  class="edittask-btn" id="edittask-btn"></ion-icon></button>
-    <button><ion-icon name="trash" class="deletetask-btn" id="deletetask-btn"></ion-icon></button>
-  </div>
-          </li> -->
+            <p class="task-heading-text">${newTask.taskname}</p>
+            <p class="task-date-text">${newTask.taskdate}</p>
+          </div>
+
+          <div class="list-task-btns">
+            <button id="edittask-btn" class="edittask-btn">
+              <ion-icon name="pencil-outline" class="edittask-icon"></ion-icon>
+            </button>
+            <button id="deletetask-btn" class="deletetask-btn">
+              <ion-icon name="trash" class="deletetask-icon"></ion-icon>
+            </button>
+          </div> -->
         </ul>
       </section>
 
@@ -73,14 +87,5 @@
         <button class="footer-btn" id="sortlist-btn">Sort A - Z</button>
       </section>
     </main>
-
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
   </body>
 </html>

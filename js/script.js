@@ -106,15 +106,19 @@ function addTask(e) {
     listElement.setAttributeNode(attr);
 
     // add user input to list element
-    listElement.innerHTML = `<ion-icon name="square-outline"></ion-icon>
-  
+    listElement.innerHTML = `<div class="list-task-text">
+    <ion-icon name="square-outline"></ion-icon>
     <p class="task-heading-text">${newTask.taskname}</p>
     <p class="task-date-text">${newTask.taskdate}</p>
-  
-  <div>
-    <button id="edittask-btn"><ion-icon name="pencil-outline"  class="edittask-btn"></ion-icon></button>
-    <button id="deletetask-btn"><ion-icon name="trash" class="deletetask-btn"></ion-icon></button>
-  </div>`;
+    </div>
+    <div class="list-task-btns">
+    <button id="edittask-btn" class="edittask-btn">
+    <ion-icon name="pencil-outline" class="edittask-icon"></ion-icon>
+  </button>
+  <button id="deletetask-btn" class="deletetask-btn">
+    <ion-icon name="trash" class="deletetask-icon"></ion-icon>
+  </button>
+    </div>`;
 
     const deleteBtn = listElement.querySelector("#deletetask-btn");
     const editBtn = listElement.querySelector("#edittask-btn");
@@ -126,7 +130,9 @@ function addTask(e) {
 
     // task completed
     listElement.addEventListener("click", function () {
-      listElement.classList.toggle("list-item-completed");
+      document
+        .querySelector(".list-task-text")
+        .classList.toggle("list-item-completed");
     });
 
     // modal close

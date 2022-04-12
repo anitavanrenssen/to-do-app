@@ -7,6 +7,10 @@ body {
   background-color: #a68a64;
   font-family: "Roboto", sans-serif;
   color: #fff;
+  max-width: 700px;
+  min-height: 80vh;
+  margin: auto;
+  box-shadow: 0 2px 16px 1px rgba(0, 0, 0, 0.3);
 }
 
 .header {
@@ -20,19 +24,22 @@ body {
 
 .content {
   text-align: center;
-  padding: 48px 16px 48px 16px;
+  padding: 48px;
 }
 
 .newtask-dialog {
   border: none;
-  height: 30vh;
-  width: 70vw;
+  height: 250px;
+  width: 500px;
+  margin: auto;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .new-task-input,
@@ -58,22 +65,35 @@ body {
 .heading {
   font-weight: 400;
   letter-spacing: 2px;
-  margin-top: 48px;
+  margin: 48px 0 32px 0;
 }
 
 .task-list {
-  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding-left: 0;
 }
 
 .list-item {
   display: flex;
+  justify-content: center;
+  height: 60px;
+  margin-bottom: 8px;
+}
+
+.list-task-text {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
+  gap: 32px;
   background-color: #b6ad90;
   color: #0b182f;
-  padding: 0 12px 0 12px;
+  padding: 16px;
   cursor: pointer;
+
+  width: 500px;
 }
 
 .list-item-completed {
@@ -87,18 +107,31 @@ body {
 
 .task-heading-text {
   font-size: 18px;
-  margin-bottom: 0;
 }
 
 .task-date-text {
   font-size: 12px;
   color: #0b182fb9;
-  margin: 6px 0 18px 0;
 }
 
 .deletetask-btn,
 .edittask-btn {
+  color: #6b3620;
   cursor: pointer;
+  height: 60px;
+  width: 45px;
+  border: none;
+}
+
+.deletetask-icon,
+.edittask-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.list-task-btns {
+  display: flex;
+  gap: 2px;
 }
 
 .footer-btn-section {
