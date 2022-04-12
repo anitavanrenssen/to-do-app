@@ -30,40 +30,38 @@
     ></script>
   </head>
 
-  <body>
+  <dialog class="newtask-dialog" id="dialog-newtask">
+    <h2 id="modal-heading">Add new task</h2>
+    <form class="form">
+      <input
+        type="text"
+        class="new-task-input"
+        id="input-new-task"
+        placeholder="Add new task"
+      />
+
+      <input
+        type="datetime-local"
+        class="new-taskdate-input"
+        id="input-new-taskdate"
+      />
+      <span id="no-value"></span>
+      <button type="submit" class="add-newtask-btn" id="btn-addnewtask">
+        +
+      </button>
+      <button type="button" class="exit-btn" id="btn-exit">Exit</button>
+    </form>
+  </dialog>
+
+  <body class="body">
     <header class="header">
-      <span></span>
+      <span class="header-title">Your Tasks</span>
+      <span class="header-date">Tuesday 12 April 2022</span>
     </header>
 
     <main class="content">
-      <dialog class="newtask-dialog" id="dialog-newtask">
-        <h2 id="modal-heading">Add new task</h2>
-        <form class="form">
-          <input
-            type="text"
-            class="new-task-input"
-            id="input-new-task"
-            placeholder="Add new task"
-          />
-
-          <input
-            type="datetime-local"
-            class="new-taskdate-input"
-            id="input-new-taskdate"
-          />
-          <span id="no-value"></span>
-          <button type="submit" class="add-task-btn" id="btn-addnewtask">
-            +
-          </button>
-          <button type="button" class="exit-btn" id="btn-exit">Exit</button>
-        </form>
-      </dialog>
-
-      <button type="submit" class="add-task-btn" id="btn-addtask">+</button>
-
-      <h2 class="heading">Your Tasks</h2>
-
-      <section>
+      <section class="task-container">
+        <!-- <h2 class="heading">Your To Do List</h2> -->
         <ul class="task-list" id="list-tasks">
           <!-- <div class="list-task-text">
             <ion-icon name="square-outline"></ion-icon>
@@ -82,10 +80,11 @@
         </ul>
       </section>
 
-      <section class="footer-btn-section" id="btns-footer-section">
+      <section class="footer-btn-section hidden" id="btns-footer-section">
         <button class="footer-btn" id="clearlist-btn">Clear List</button>
         <button class="footer-btn" id="sortlist-btn">Sort A - Z</button>
       </section>
+      <button type="button" class="add-task-btn" id="btn-addtask">+</button>
     </main>
   </body>
 </html>

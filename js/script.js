@@ -12,6 +12,7 @@ const taskList = document.getElementById("list-tasks");
 const modalHeading = document.getElementById("modal-heading");
 const taskInputField = document.getElementById("input-new-task");
 const taskdateInputField = document.getElementById("input-new-taskdate");
+const body = document.querySelector(".body");
 let taskArray = [];
 /********************
  * EVENT LISTENERS
@@ -19,11 +20,13 @@ let taskArray = [];
 // modal open
 addTaskBtn.addEventListener("click", () => {
   dialog.showModal();
+  body.classList.add("modal-open");
 });
 
 // modal close
 exitBtn.addEventListener("click", () => {
   dialog.close();
+  body.classList.remove("modal-open");
 });
 
 // add new task
@@ -136,9 +139,10 @@ function addTask(e) {
 
     // modal close
     dialog.close();
+    body.classList.remove("modal-open");
 
     // display footer buttons
-    footerBtns.style.display = "block";
+    footerBtns.classList.remove("hidden");
 
     // add to local storage
     addToLocalStorage(newtaskId, newTask);
@@ -151,6 +155,7 @@ function addTask(e) {
 
     // modal close
     dialog.close();
+    body.classList.remove("modal-open");
     setBackToDefault();
     // editLocalStorage(editId, newTask);
   } else if (userInputTask === "") {
@@ -167,12 +172,12 @@ function clearList() {
     tasksAll.forEach(function (listElement) {
       taskList.removeChild(listElement);
     });
-    // setBackToDefault();
+    setBackToDefault();
     localStorage.removeItem("taskList");
   }
 
   // hide footer buttons
-  footerBtns.style.display = "none";
+  footerBtns.classList.add("hidden");
 }
 
 function sortList() {
@@ -186,7 +191,7 @@ function deleteTask(event) {
   const id = element.dataset.id;
   taskList.removeChild(element);
   if (taskList.children.length === 0) {
-    footerBtns.style.display = "none";
+    footerBtns.classList.add("hidden");
   }
   setBackToDefault();
   // remove from local storage
@@ -205,6 +210,7 @@ function editTask(event) {
   editId = element.dataset.id;
   editFlag = true;
   dialog.showModal();
+  body.classList.add("modal-open");
 }
 
 // set back to default
