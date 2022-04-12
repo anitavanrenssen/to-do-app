@@ -146,8 +146,8 @@ function addTask(e) {
 
     // modal close
     dialog.close();
+    setBackToDefault();
     editLocalStorage(editId, newTask);
-    // setBackToDefault();
   } else if (userInputTask === "" && userInputDate === "") {
     noValue.innerHTML = "Please enter a task and date";
   } else if (userInputTask === "" && userInputDate !== "") {
@@ -203,16 +203,16 @@ function editTask(e) {
   editId = element.dataset.id;
   editFlag = true;
   dialog.showModal();
-  setBackToDefault();
 }
 
 // set back to default
-// function setBackToDefault() {
-//   userInputTask.value = "";
-//   userInputDate.value = "";
-//   editFlag = false;
-//   editID = "";
-// }
+function setBackToDefault() {
+  taskInputField.value = "";
+  taskdateInputField.value = "";
+  editFlag = false;
+  editID = "";
+  modalHeading.innerHTML = "Add new task";
+}
 
 /********************
  * LOCAL STORAGE
