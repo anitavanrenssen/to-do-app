@@ -90,7 +90,7 @@ function addTask(e) {
   // input instruction set to none
   noValue.innerHTML = "";
 
-  if (userInputTask !== "" && userInputDate !== "" && !editFlag) {
+  if (userInputTask !== "" && !editFlag) {
     // instantiate new object
     let newTask = new Task(newtaskId, userInputTask, userInputDate);
     // add object to task array
@@ -120,6 +120,7 @@ function addTask(e) {
   </button>
     </div>`;
 
+    const listText = listElement.querySelector(".list-task-text");
     const deleteBtn = listElement.querySelector("#deletetask-btn");
     const editBtn = listElement.querySelector("#edittask-btn");
     deleteBtn.addEventListener("click", deleteTask);
@@ -129,10 +130,8 @@ function addTask(e) {
     taskList.appendChild(listElement);
 
     // task completed
-    listElement.addEventListener("click", function () {
-      document
-        .querySelector(".list-task-text")
-        .classList.toggle("list-item-completed");
+    listText.addEventListener("click", function () {
+      listText.classList.toggle("list-item-completed");
     });
 
     // modal close
@@ -153,13 +152,9 @@ function addTask(e) {
     // modal close
     dialog.close();
     setBackToDefault();
-    editLocalStorage(editId, newTask);
-  } else if (userInputTask === "" && userInputDate === "") {
-    noValue.innerHTML = "Please enter a task and date";
-  } else if (userInputTask === "" && userInputDate !== "") {
+    // editLocalStorage(editId, newTask);
+  } else if (userInputTask === "") {
     noValue.innerHTML = "Please enter a task";
-  } else if (userInputTask !== "" && userInputDate === "") {
-    noValue.innerHTML = "Please enter a date";
   } else {
     noValue.innerHTML = "";
   }
@@ -186,8 +181,8 @@ function sortList() {
     .forEach((node) => taskList.appendChild(node));
 }
 
-function deleteTask(e) {
-  const element = e.currentTarget.parentElement.parentElement;
+function deleteTask(event) {
+  const element = event.currentTarget.parentElement.parentElement;
   const id = element.dataset.id;
   taskList.removeChild(element);
   if (taskList.children.length === 0) {
@@ -198,11 +193,12 @@ function deleteTask(e) {
   removeFromLocalStorage(id);
 }
 
-function editTask(e) {
-  const element = e.currentTarget.parentElement.parentElement;
+function editTask(event) {
+  const element = event.currentTarget.parentElement.parentElement;
   editTaskEl =
-    e.currentTarget.parentElement.previousElementSibling.previousElementSibling;
-  editTaskDateEl = e.currentTarget.parentElement.previousElementSibling;
+    event.currentTarget.parentElement.previousElementSibling.children[1];
+  editTaskDateEl =
+    event.currentTarget.parentElement.previousElementSibling.children[2];
   taskInputField.value = editTaskEl.innerHTML;
   taskdateInputField.value = editTaskDateEl.innerHTML;
   modalHeading.innerHTML = "Edit task";
