@@ -34,6 +34,7 @@ body {
 
 .header-title {
   font-size: 32px;
+  margin-bottom: 8px;
 }
 
 .header-date {
@@ -89,7 +90,7 @@ body {
 }
 
 .task-container {
-  padding: 32px;
+  margin: 48px 32px;
 }
 
 .task-list {
@@ -116,7 +117,7 @@ body {
   color: #473c33;
   padding: 16px;
   cursor: pointer;
-  width: 65vw;
+  width: 400px;
   border-radius: 10px 0 0 10px;
 }
 
@@ -140,7 +141,7 @@ body {
 
 .deletetask-btn,
 .edittask-btn {
-  background-color: #58643c;
+  background-color: #58643c9c;
   color: #fff;
   cursor: pointer;
   height: 50px;
@@ -154,8 +155,8 @@ body {
 
 .deletetask-icon,
 .edittask-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .list-task-btns {

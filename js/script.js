@@ -1,4 +1,14 @@
 /********************
+ * TODAY'S DATE
+ ********************/
+
+const date = new Date();
+let dateHeader = date.toDateString();
+
+const todaysDate = document.querySelector("#header-date");
+todaysDate.innerHTML = dateHeader;
+
+/********************
  * REFERENCES
  ********************/
 const addTaskBtn = document.getElementById("btn-addtask");
@@ -85,10 +95,12 @@ let editID = "";
 function addTask(e) {
   e.preventDefault();
   // store user input into variables
-  let userInputTask = document.getElementById("input-new-task").value;
+  let userInput = document.getElementById("input-new-task").value;
   let userInputDate = document.getElementById("input-new-taskdate").value;
   const noValue = document.getElementById("no-value");
   let newtaskId = new Date().getTime().toString();
+  // make first letter uppercase
+  let userInputTask = userInput.charAt(0).toUpperCase() + userInput.slice(1);
 
   // input instruction set to none
   noValue.innerHTML = "";
