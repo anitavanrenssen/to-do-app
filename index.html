@@ -31,27 +31,27 @@
     ></script>
   </head>
 
-  <dialog class="newtask-dialog" id="modal">
-    <form class="form">
-      <h2 class="modal-heading" id="modal-heading">Add new task</h2>
-      <input
-        type="text"
-        class="task-input"
-        id="task-input"
-        placeholder="Add new task"
-      />
-
-      <input type="datetime-local" class="task-input" id="taskdate-input" />
-      <span id="no-value" class="no-value"></span>
-      <button type="submit" class="add-newtask-btn" id="btn-addnewtask">
-        +
-      </button>
-      <button type="button" class="exit-btn" id="btn-exit">x</button>
-    </form>
-  </dialog>
-
   <body>
-    <section class="body">
+    <dialog class="newtask-dialog" id="modal">
+      <form class="form">
+        <h2 class="modal-heading" id="modal-heading">Add new task</h2>
+        <input
+          type="text"
+          class="task-input"
+          id="task-input"
+          placeholder="Add new task"
+        />
+
+        <input type="datetime-local" class="task-input" id="taskdate-input" />
+        <span id="no-value" class="no-value"></span>
+        <button type="submit" class="add-newtask-btn" id="btn-addnewtask">
+          Save
+        </button>
+        <button type="button" class="exit-btn" id="btn-exit">x</button>
+      </form>
+    </dialog>
+
+    <section class="app-window">
       <header class="header">
         <span class="header-title">your tasks</span>
         <span class="header-date" id="header-date"></span>
@@ -60,27 +60,8 @@
 
       <main class="content">
         <section class="task-container">
-          <!-- <h2 class="heading">Your To Do List</h2> -->
           <ul class="task-list" id="list-tasks">
-            <!-- <li class="list-item" data-id="${newTask.taskid}">
-            <div class="list-task-text">
-              <ion-icon name="square-outline"></ion-icon>
-              <p class="task-heading-text">${newTask.taskname}</p>
-              <p class="task-date-text">${newTask.taskdate}</p>
-            </div>
-
-            <div class="list-task-btns">
-              <button id="edittask-btn" class="edittask-btn">
-                <ion-icon
-                  name="pencil-outline"
-                  class="edittask-icon"
-                ></ion-icon>
-              </button>
-              <button id="deletetask-btn" class="deletetask-btn">
-                <ion-icon name="trash" class="deletetask-icon"></ion-icon>
-              </button>
-            </div>
-          </li> -->
+            <!-- add new <li> element here -->
           </ul>
         </section>
 

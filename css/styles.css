@@ -4,7 +4,7 @@
   margin: 0;
 }
 
-.body {
+.app-window {
   background-color: #ebedee;
   color: #3a4a54;
   max-width: 600px;
@@ -102,13 +102,12 @@
 }
 
 .add-newtask-btn {
-  font-size: 28px;
+  font-size: 16px;
   color: #908899;
   background-color: #fff;
   border: none;
-  border-radius: 50%;
-  height: 45px;
-  width: 45px;
+  padding: 8px 16px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -153,6 +152,7 @@
 }
 
 .list-task-text {
+  text-transform: capitalize;
   display: flex;
   align-items: center;
   justify-content: start;

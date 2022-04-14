@@ -3,17 +3,18 @@
  *************************/
 
 const date = new Date();
-let dateHeader = date.toDateString();
+const DATE_HEADER = date.toDateString();
 
 const todaysDate = document.querySelector("#header-date");
-todaysDate.innerHTML = dateHeader;
+todaysDate.innerHTML = DATE_HEADER;
 
 /*************************
  * VARIABLES
  *************************/
 
-const toDoAppKey = "todo-app-storage-key";
-const body = document.querySelector(".body");
+const TODO_APP_KEY = "todo-app-storage-key";
+const appWindow = document.querySelector(".app-window");
+
 // modal
 const dialog = document.querySelector("#modal");
 const modalHeading = document.querySelector("#modal-heading");
@@ -22,18 +23,22 @@ const taskdateInputField = document.querySelector("#taskdate-input");
 const noValue = document.querySelector("#no-value");
 const modalAddTaskBtn = document.querySelector("#btn-addnewtask");
 const exitBtn = document.querySelector("#btn-exit");
+
 // tasklist
 const taskList = document.querySelector("#list-tasks");
+
 // app buttons
 const addTaskBtn = document.querySelector("#btn-addtask");
 const footerBtns = document.querySelector("#btns-footer-section");
 const clearListBtn = document.querySelector("#clearlist-btn");
 const sortListBtn = document.querySelector("#sortlist-btn");
+
 // edit option
 let editTaskEl = "";
 let editTaskDateEl = "";
 let editFlag = false;
 let editID = "";
+
 // empty array for new Task objects
 let taskArray = [];
 
@@ -42,33 +47,9 @@ let taskArray = [];
  *************************/
 class Task {
   constructor(taskid, taskname, taskdate) {
-    this._taskid = taskid;
-    this._taskname = taskname;
-    this._taskdate = taskdate;
-  }
-
-  get taskid() {
-    return this._taskid;
-  }
-
-  set taskid(newTaskId) {
-    this._taskid = newTaskId;
-  }
-
-  get taskname() {
-    return this._taskname;
-  }
-
-  set taskname(newTaskName) {
-    this._taskname = newTaskName;
-  }
-
-  get taskdate() {
-    return this._taskdate;
-  }
-
-  set taskdate(newTaskName) {
-    this._taskdate = newTaskName;
+    this.taskid = taskid;
+    this.taskname = taskname;
+    this.taskdate = taskdate;
   }
 }
 
@@ -76,26 +57,41 @@ class Task {
  * EVENT LISTENERS
  *************************/
 
-// modal open with background blur
+// modal open
 addTaskBtn.addEventListener("click", () => {
   dialog.showModal();
-  body.classList.add("modal-open");
+  appWindow.classList.add("modal-open");
 });
 
 // modal close
 exitBtn.addEventListener("click", () => {
   dialog.close();
-  body.classList.remove("modal-open");
+  appWindow.classList.remove("modal-open");
 });
 
 // add new task
-modalAddTaskBtn.addEventListener("click", addTask);
+dialog.addEventListener("submit", function (event) {
+  event.preventDefault();
+  addTask(
+    new Date().getTime().toString(),
+    taskInputField.value,
+    taskdateInputField.value
+  );
+});
 
 // clear task list
 clearListBtn.addEventListener("click", clearList);
 
 // sort tasks alphabetically
 sortListBtn.addEventListener("click", sortList);
+
+taskList.addEventListener("click", function (event) {
+  if (event.target.classList.contains("deletetask-btn")) {
+    deleteTask(
+      event.target.parentElement.parentElement.getAttribute("data-id")
+    );
+  }
+});
 
 // load tasks
 // window.addEventListener("DOMContentLoaded", setupTasks);
@@ -105,33 +101,71 @@ sortListBtn.addEventListener("click", sortList);
  ********************/
 
 /********** Add new task **********/
-function addTask(event) {
-  event.preventDefault();
+function addTask(id, name, date) {
   // store user input into variables
-  let userInput = document.querySelector("#task-input").value;
-  let userInputDate = document.querySelector("#taskdate-input").value;
+  // let userInputTask = taskInputField.value;
+  // let userInputDate = taskdateInputField.value;
+
   // create unique id for each new task
-  let newtaskId = new Date().getTime().toString();
-  // make first letter uppercase
-  let userInputTask = userInput.charAt(0).toUpperCase() + userInput.slice(1);
+  // let id = new Date().getTime().toString();
 
   // input instruction set to none
   noValue.innerHTML = "";
 
   // if task input field is not empty and no task is not being edited
-  if (userInputTask !== "" && !editFlag) {
+  if (name !== "" && !editFlag) {
     // instantiate new object
-    let newTask = new Task(newtaskId, userInputTask, userInputDate);
+    let newTask = new Task(id, name, date);
+    // console.log({ newTask });
     // add object to task array
     taskArray.push(newTask);
 
+    addToLocalStorage(taskArray);
+
+    // modal close
+    dialog.close();
+    appWindow.classList.remove("modal-open");
+
+    // display footer buttons
+    footerBtns.classList.remove("hidden");
+
+    // addToLocalStorage();
+
+    setBackToDefault();
+
+    // if task input field is not empty and task is being edited
+  } else if (name !== "" && editFlag) {
+    editTaskEl.innerHTML = taskInputField.value;
+    editTaskDateEl.innerHTML = taskdateInputField.value;
+
+    // modal close
+    dialog.close();
+    appWindow.classList.remove("modal-open");
+
+    setBackToDefault();
+
+    // editLocalStorage(editId, newTask);
+
+    // if task input field is empty
+  } else if (name === "") {
+    noValue.innerHTML = "Please enter a task";
+  } else {
+    noValue.innerHTML = "";
+  }
+}
+
+function renderTasks(taskArray) {
+  taskList.innerHTML = "";
+
+  taskArray.forEach(function (newTask) {
+    // console.log(newTask);
     // create new list element
-    const listElement = document.createElement("LI");
+    const listElement = document.createElement("li");
     // add class
     listElement.classList.add("list-item");
     // add id
     const attr = document.createAttribute("data-id");
-    attr.value = newtaskId;
+    attr.value = newTask.taskid;
     listElement.setAttributeNode(attr);
 
     // add user input to list element
@@ -141,62 +175,33 @@ function addTask(event) {
       <p class="task-heading-text">${newTask.taskname}</p>
       <p class="task-date-text">${newTask.taskdate}</p>
     </div>
+    
     <div class="list-task-btns">
       <button id="edittask-btn" class="edittask-btn">
-      <ion-icon name="pencil-outline" class="edittask-icon"></ion-icon>
+        <ion-icon name="pencil-outline" class="edittask-icon"></ion-icon>
       </button>
       <button id="deletetask-btn" class="deletetask-btn">
-      <ion-icon name="trash" class="deletetask-icon"></ion-icon>
+        <ion-icon name="trash" class="deletetask-icon"></ion-icon>
       </button>
     </div>`;
 
     // variables and event listeners created after new task created
     const taskText = listElement.querySelector(".list-task-text");
-    const deleteBtn = listElement.querySelector("#deletetask-btn");
+    // const deleteBtn = listElement.querySelector("#deletetask-btn");
     const editBtn = listElement.querySelector("#edittask-btn");
 
-    deleteBtn.addEventListener("click", deleteTask);
+    // deleteBtn.addEventListener("click", deleteTask);
     editBtn.addEventListener("click", editTask);
 
     // add list element to DOM
     taskList.appendChild(listElement);
-
-    // modal close
-    dialog.close();
-    body.classList.remove("modal-open");
-
-    // display footer buttons
-    footerBtns.classList.remove("hidden");
 
     // task completed
     taskText.addEventListener("click", function () {
       taskText.classList.toggle("list-item-completed");
       listElement.classList.toggle("completed");
     });
-
-    addToLocalStorage();
-
-    setBackToDefault();
-
-    // if task input field is not empty and task is being edited
-  } else if (userInputTask !== "" && editFlag) {
-    editTaskEl.innerHTML = userInputTask;
-    editTaskDateEl.innerHTML = userInputDate;
-
-    // modal close
-    dialog.close();
-    body.classList.remove("modal-open");
-
-    setBackToDefault();
-
-    // editLocalStorage(editId, newTask);
-
-    // if task input field is empty
-  } else if (userInputTask === "") {
-    noValue.innerHTML = "Please enter a task";
-  } else {
-    noValue.innerHTML = "";
-  }
+  });
 }
 
 /********** Clear task list **********/
@@ -224,21 +229,31 @@ function sortList() {
 }
 
 /********** Delete task from list **********/
-function deleteTask(event) {
-  // select list element
-  const element = event.currentTarget.parentElement.parentElement;
-  // access list element id
-  const id = element.dataset.id;
-  // remove selected element
-  taskList.removeChild(element);
-  // hide footer buttons when no tasks exist
+function deleteTask(taskid) {
+  taskArray = taskArray.filter(function (newTask) {
+    return newTask.taskid != taskid;
+  });
+  addToLocalStorage(taskArray);
   if (taskList.children.length === 0) {
     footerBtns.classList.add("hidden");
   }
   setBackToDefault();
-
-  // removeFromLocalStorage(id);
 }
+// function deleteTask(event) {
+//   // select list element
+//   const element = event.currentTarget.parentElement.parentElement;
+//   // access list element id
+//   const id = element.dataset.id;
+//   // remove selected element
+//   taskList.removeChild(element);
+//   // hide footer buttons when no tasks exist
+//   if (taskList.children.length === 0) {
+//     footerBtns.classList.add("hidden");
+//   }
+//   setBackToDefault();
+
+// removeFromLocalStorage(id);
+// }
 
 /********** Edit task in list **********/
 function editTask(event) {
@@ -259,7 +274,7 @@ function editTask(event) {
   editFlag = true;
   // modal close
   dialog.showModal();
-  body.classList.add("modal-open");
+  appWindow.classList.add("modal-open");
 
   // editLocalStorage(id)
 }
@@ -277,11 +292,26 @@ function setBackToDefault() {
  * LOCAL STORAGE
  *************************/
 
-function addToLocalStorage() {
-  taskArray = JSON.stringify(taskArray);
-  localStorage.setItem(toDoAppKey, taskArray);
-  taskArray = JSON.parse(localStorage.getItem(toDoAppKey));
+function addToLocalStorage(taskArray) {
+  localStorage.setItem(TODO_APP_KEY, JSON.stringify(taskArray));
+  renderTasks(taskArray);
 }
+
+function getFromLocalStorage() {
+  const reference = localStorage.getItem(TODO_APP_KEY);
+  if (reference) {
+    taskArray = JSON.parse(reference);
+    renderTasks(taskArray);
+  }
+}
+
+getFromLocalStorage();
+
+// function addToLocalStorage() {
+//   taskArray = JSON.stringify(taskArray);
+//   localStorage.setItem(toDoAppKey, taskArray);
+//   taskArray = JSON.parse(localStorage.getItem(toDoAppKey));
+// }
 
 // function removeFromLocalStorage(id) {}
 
