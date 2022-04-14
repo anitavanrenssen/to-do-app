@@ -285,8 +285,6 @@ function addToLocalStorage() {
 
 // function removeFromLocalStorage(id) {}
 
-// function removeFromLocalStorage(id) {}
-
 // function editLocalStorage(id, value) {}
 
 /*************************
