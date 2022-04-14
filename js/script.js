@@ -98,7 +98,7 @@ clearListBtn.addEventListener("click", clearList);
 sortListBtn.addEventListener("click", sortList);
 
 // load tasks
-window.addEventListener("DOMContentLoaded", setupTasks);
+// window.addEventListener("DOMContentLoaded", setupTasks);
 
 /********************
  * FUNCTIONS
@@ -151,7 +151,6 @@ function addTask(event) {
     </div>`;
 
     // variables and event listeners created after new task created
-    const listItem = taskList.querySelector(".list-item");
     const taskText = listElement.querySelector(".list-task-text");
     const deleteBtn = listElement.querySelector("#deletetask-btn");
     const editBtn = listElement.querySelector("#edittask-btn");
