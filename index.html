@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To Do App</title>
+    <title>Your Tasks</title>
 
     <!-- Link to Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,6 +15,10 @@
     />
     <!-- Link to CSS Stylesheet -->
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+
+    <!-- Link to CSS media queries -->
+    <link rel="stylesheet" type="text/css" href="./css/queries.css" />
+
     <!-- Link to JS file -->
     <script src="./js/script.js" defer></script>
 
@@ -32,44 +36,51 @@
   </head>
 
   <body>
-    <dialog class="newtask-dialog" id="modal">
+    <!-- Add new task modal -->
+    <dialog class="modal" id="modal">
       <form class="form">
         <h2 class="modal-heading" id="modal-heading">Add new task</h2>
         <input
           type="text"
           class="task-input"
           id="task-input"
-          placeholder="Add new task"
+          placeholder="New task"
         />
-
         <input type="datetime-local" class="task-input" id="taskdate-input" />
         <span id="no-value" class="no-value"></span>
-        <button type="submit" class="add-newtask-btn" id="btn-addnewtask">
-          Save
-        </button>
-        <button type="button" class="exit-btn" id="btn-exit">x</button>
+        <button type="submit" class="save-btn" id="save-btn">Save</button>
+        <button type="button" class="exit-btn" id="exit-btn">x</button>
       </form>
     </dialog>
 
-    <section class="app-window">
+    <!-- Application window -->
+    <section class="app-box">
       <header class="header">
-        <span class="header-title">your tasks</span>
+        <h1 class="header-title">your tasks</h1>
         <span class="header-date" id="header-date"></span>
-        <img src="./images/desk-01.png" class="illustration" />
+        <img
+          src="./images/desk.png"
+          class="illustration"
+          alt="illustration of office desk and plant"
+        />
       </header>
 
+      <!-- container where tasks are displayed -->
       <main class="content">
         <section class="task-container">
-          <ul class="task-list" id="list-tasks">
+          <ul class="task-list" id="task-list">
             <!-- add new <li> element here -->
           </ul>
         </section>
 
-        <section class="footer-btn-section hidden" id="btns-footer-section">
-          <button class="footer-btn" id="clearlist-btn">Clear List</button>
-          <button class="footer-btn" id="sortlist-btn">Sort A - Z</button>
+        <!-- Application buttons -->
+        <section class="footer">
+          <section class="editlist-btns hidden" id="editlist-btns">
+            <button class="editlist-btn" id="clearlist-btn">Clear List</button>
+            <button class="editlist-btn" id="sortlist-btn">Sort A - Z</button>
+          </section>
+          <button type="button" class="addtask-btn" id="addtask-btn">+</button>
         </section>
-        <button type="button" class="add-task-btn" id="btn-addtask">+</button>
       </main>
     </section>
   </body>

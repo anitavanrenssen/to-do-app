@@ -1,0 +1,61 @@
+@media (max-width: 562px) {
+  .header {
+    height: 155px;
+  }
+
+  .deletetask-icon,
+  .edittask-icon {
+    width: 14px;
+    height: 14px;
+    padding: 0 4px 0 4px;
+  }
+}
+
+@media (max-width: 440px) {
+  .header {
+    height: 130px;
+    align-items: start;
+    padding-left: 42px;
+  }
+
+  .header-title {
+    font-size: 36px;
+  }
+
+  .header-date {
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  .list-task-text {
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .deletetask-btn,
+  .edittask-btn {
+    height: 40px;
+  }
+
+  .deletetask-btn {
+    margin: 3px 0 0 3px;
+    border-radius: 0 0 10px 0;
+  }
+
+  .edittask-btn {
+    margin-left: 3px;
+    border-radius: 0 10px 0 0;
+  }
+
+  .list-item {
+    grid-template-columns: 6fr 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .illustration {
+    max-width: 32%;
+  }
+}

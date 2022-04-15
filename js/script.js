@@ -13,7 +13,7 @@ todaysDate.innerHTML = DATE_HEADER;
  *************************/
 
 const TODO_APP_KEY = "todo-app-storage-key";
-const appWindow = document.querySelector(".app-window");
+const appWindow = document.querySelector(".app-box");
 
 // modal
 const dialog = document.querySelector("#modal");
@@ -21,15 +21,15 @@ const modalHeading = document.querySelector("#modal-heading");
 const taskInputField = document.querySelector("#task-input");
 const taskdateInputField = document.querySelector("#taskdate-input");
 const noValue = document.querySelector("#no-value");
-const modalAddTaskBtn = document.querySelector("#btn-addnewtask");
-const exitBtn = document.querySelector("#btn-exit");
+// const modalAddTaskBtn = document.querySelector("#save-btn");
+const exitBtn = document.querySelector("#exit-btn");
 
 // tasklist
-const taskList = document.querySelector("#list-tasks");
+const taskList = document.querySelector("#task-list");
 
 // app buttons
-const addTaskBtn = document.querySelector("#btn-addtask");
-const footerBtns = document.querySelector("#btns-footer-section");
+const addTaskBtn = document.querySelector("#addtask-btn");
+const footerBtns = document.querySelector("#editlist-btns");
 const clearListBtn = document.querySelector("#clearlist-btn");
 const sortListBtn = document.querySelector("#sortlist-btn");
 
@@ -189,7 +189,6 @@ function renderTasks(taskArray) {
     // add user input to list element
     listElement.innerHTML = `
     <div class="list-task-text">
-      <ion-icon name="square-outline"></ion-icon>
       <p class="task-heading-text">${newTask._taskname}</p>
       <p class="task-date-text">${newTask._taskdate}</p>
     </div>
@@ -278,9 +277,9 @@ function editTask(event) {
   const element = event.currentTarget.parentElement.parentElement;
   // select paragraph elements containing task name and date
   editTaskEl =
-    event.currentTarget.parentElement.previousElementSibling.children[1];
+    event.currentTarget.parentElement.previousElementSibling.children[0];
   editTaskDateEl =
-    event.currentTarget.parentElement.previousElementSibling.children[2];
+    event.currentTarget.parentElement.previousElementSibling.children[1];
   // set input value to task name and date before edit
   taskInputField.value = editTaskEl.innerHTML;
   taskdateInputField.value = editTaskDateEl.innerHTML;
