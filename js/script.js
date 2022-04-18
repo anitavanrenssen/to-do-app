@@ -21,7 +21,6 @@ const modalHeading = document.querySelector("#modal-heading");
 const taskInputField = document.querySelector("#task-input");
 const taskdateInputField = document.querySelector("#taskdate-input");
 const noValue = document.querySelector("#no-value");
-// const modalAddTaskBtn = document.querySelector("#save-btn");
 const exitBtn = document.querySelector("#exit-btn");
 
 // tasklist
@@ -45,6 +44,7 @@ let taskArray = [];
 /*************************
  * CLASSES
  *************************/
+
 class Task {
   constructor(taskid, taskname, taskdate) {
     this._taskid = taskid;
@@ -82,14 +82,12 @@ class Task {
 
 // modal open
 addTaskBtn.addEventListener("click", () => {
-  dialog.showModal();
-  appWindow.classList.add("modal-open");
+  modalOpen();
 });
 
 // modal close
 exitBtn.addEventListener("click", () => {
-  dialog.close();
-  appWindow.classList.remove("modal-open");
+  modalClose();
 });
 
 // add new task
@@ -108,20 +106,23 @@ clearListBtn.addEventListener("click", clearList);
 // sort tasks alphabetically
 sortListBtn.addEventListener("click", sortList);
 
-//
+// delete task
 taskList.addEventListener("click", function (event) {
   if (event.target.classList.contains("deletetask-btn")) {
     deleteTask(
       event.target.parentElement.parentElement.getAttribute("data-id")
     );
   }
-  // if (event.target.classList.contains("edittask-btn")) {
-  //   editTask();
-  // }
 });
 
-// load tasks
-// window.addEventListener("DOMContentLoaded", setupTasks);
+// display footer buttons
+window.addEventListener("DOMContentLoaded", () => {
+  if (taskArray !== []) {
+    footerBtns.classList.remove("hidden");
+  } else if (taskArray === []) {
+    footerBtns.classList.add("hidden");
+  }
+});
 
 /********************
  * FUNCTIONS
@@ -140,15 +141,16 @@ function addTask(id, name, date) {
     // add object to task array
     taskArray.push(newTask);
 
+    // add to local storage
     addToLocalStorage(taskArray);
 
     // modal close
-    dialog.close();
-    appWindow.classList.remove("modal-open");
+    modalClose();
 
     // display footer buttons
     footerBtns.classList.remove("hidden");
 
+    // set back to default
     setBackToDefault();
 
     // if task input field is not empty and task is being edited
@@ -157,12 +159,12 @@ function addTask(id, name, date) {
     editTaskDateEl.innerHTML = taskdateInputField.value;
 
     // modal close
-    dialog.close();
-    appWindow.classList.remove("modal-open");
+    modalClose();
 
+    // set back to default
     setBackToDefault();
 
-    editLocalStorage(editID, taskInputField.value, taskdateInputField.value);
+    // editLocalStorage(editID, taskInputField.value, taskdateInputField.value);
 
     // if task input field is empty
   } else if (name === "") {
@@ -172,11 +174,12 @@ function addTask(id, name, date) {
   }
 }
 
+/********** Create new task and add to DOM **********/
 function renderTasks(taskArray) {
+  // clear everything inside <ul>
   taskList.innerHTML = "";
 
   taskArray.forEach(function (newTask) {
-    // console.log(newTask);
     // create new list element
     const listElement = document.createElement("li");
     // add class
@@ -204,10 +207,9 @@ function renderTasks(taskArray) {
 
     // variables and event listeners created after new task created
     const taskText = listElement.querySelector(".list-task-text");
-    // const deleteBtn = listElement.querySelector("#deletetask-btn");
     const editBtn = listElement.querySelector("#edittask-btn");
 
-    // deleteBtn.addEventListener("click", deleteTask);
+    // edit task
     editBtn.addEventListener("click", editTask);
 
     // add list element to DOM
@@ -221,6 +223,8 @@ function renderTasks(taskArray) {
   });
 }
 
+getFromLocalStorage();
+
 /********** Clear task list **********/
 function clearList() {
   const tasksAll = document.querySelectorAll(".list-item");
@@ -229,7 +233,9 @@ function clearList() {
     tasksAll.forEach(function (listItem) {
       taskList.removeChild(listItem);
     });
+    // set back to default
     setBackToDefault();
+
     // clear local storage
     localStorage.removeItem("todo-app-storage-key");
   }
@@ -256,21 +262,6 @@ function deleteTask(taskid) {
   }
   setBackToDefault();
 }
-// function deleteTask(event) {
-//   // select list element
-//   const element = event.currentTarget.parentElement.parentElement;
-//   // access list element id
-//   const id = element.dataset.id;
-//   // remove selected element
-//   taskList.removeChild(element);
-//   // hide footer buttons when no tasks exist
-//   if (taskList.children.length === 0) {
-//     footerBtns.classList.add("hidden");
-//   }
-//   setBackToDefault();
-
-// removeFromLocalStorage(id);
-// }
 
 /********** Edit task in list **********/
 function editTask(event) {
@@ -288,27 +279,9 @@ function editTask(event) {
   // change edit option variable values
   editId = element.dataset.id;
   editFlag = true;
-  // modal close
-  dialog.showModal();
-  appWindow.classList.add("modal-open");
+  // modal open
+  modalOpen();
 }
-
-// function editTask(taskid) {
-
-// const todo = todos.find(todo => todo.id == currentlySelectedTodoId);
-
-//   var taskEdit = taskArray.find((b) => b.taskid === taskid);
-//   console.log(taskEdit);
-//   // if (newTask.taskid === taskid) {
-//   //   newTask.taskname = newtaskname;
-//   //   newTask.taskdate = newtaskdate;
-//   // }
-//   dialog.showModal();
-//   appWindow.classList.add("modal-open");
-// }
-
-// editLocalStorage(id)
-// }
 
 /********** Set modal back to default **********/
 function setBackToDefault() {
@@ -317,6 +290,18 @@ function setBackToDefault() {
   editFlag = false;
   editID = "";
   modalHeading.innerHTML = "Add new task";
+}
+
+/********** Modal open **********/
+function modalOpen() {
+  dialog.showModal();
+  appWindow.classList.add("modal-open");
+}
+
+/********** Modal close **********/
+function modalClose() {
+  dialog.close();
+  appWindow.classList.remove("modal-open");
 }
 
 /*************************
@@ -337,29 +322,3 @@ function getFromLocalStorage() {
 }
 
 getFromLocalStorage();
-
-// function editLocalStorage(id, name, date) {
-//   let taskArray = getFromLocalStorage();
-//   taskArray = taskArray.map(function (newTask) {
-//     if (newTask._id === id) {
-//       newTask._taskname = name;
-//       newTask._taskdate = date;
-//     }
-//     return newTask;
-//   });
-//   localStorage.setItem(TODO_APP_KEY, JSON.stringify(taskArray));
-// }
-
-// function addToLocalStorage() {
-//   taskArray = JSON.stringify(taskArray);
-//   localStorage.setItem(toDoAppKey, taskArray);
-//   taskArray = JSON.parse(localStorage.getItem(toDoAppKey));
-// }
-
-// function removeFromLocalStorage(id) {}
-
-// function editLocalStorage(id, value) {}
-
-/*************************
- * SETUP TASKS
- *************************/

@@ -4,10 +4,14 @@
   margin: 0;
 }
 
+body {
+  background: linear-gradient(to bottom right, #f7deff, #e6f0ff);
+}
+
 /*********** APPLICATION BOX ***********/
 
 .app-box {
-  background-color: #ebedee;
+  background-color: #dadee0;
   color: #3a4a54;
   max-width: 600px;
   min-height: 100vh;
@@ -27,7 +31,6 @@
   color: #fff;
   height: 190px;
   width: 100%;
-  border-radius: 0 0 0 40px;
 }
 
 .header-title {
