@@ -164,8 +164,6 @@ function addTask(id, name, date) {
     // set back to default
     setBackToDefault();
 
-    // editLocalStorage(editID, taskInputField.value, taskdateInputField.value);
-
     // if task input field is empty
   } else if (name === "") {
     noValue.innerHTML = "Please enter a task";
@@ -233,6 +231,7 @@ function clearList() {
     tasksAll.forEach(function (listItem) {
       taskList.removeChild(listItem);
     });
+
     // set back to default
     setBackToDefault();
 
