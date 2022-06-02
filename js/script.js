@@ -81,14 +81,10 @@ class Task {
  *************************/
 
 // modal open
-addTaskBtn.addEventListener("click", () => {
-  modalOpen();
-});
+addTaskBtn.addEventListener("click", modalOpen);
 
 // modal close
-exitBtn.addEventListener("click", () => {
-  modalClose();
-});
+exitBtn.addEventListener("click", modalClose);
 
 // add new task
 dialog.addEventListener("submit", function (event) {
@@ -319,5 +315,3 @@ function getFromLocalStorage() {
     renderTasks(taskArray);
   }
 }
-
-getFromLocalStorage();
