@@ -1,3 +1,5 @@
+import { Task } from "../classes/Task.js";
+
 /*************************
  * TODAY'S DATE
  *************************/
@@ -40,41 +42,6 @@ let editID = "";
 
 // empty array for new Task objects
 let taskArray = [];
-
-/*************************
- * CLASSES
- *************************/
-
-class Task {
-  constructor(taskid, taskname, taskdate) {
-    this._taskid = taskid;
-    this._taskname = taskname;
-    this._taskdate = taskdate;
-  }
-  get taskid() {
-    return this._taskid;
-  }
-
-  set taskid(newtaskid) {
-    this._taskid = newtaskid;
-  }
-
-  get taskname() {
-    return this._taskname;
-  }
-
-  set taskname(newtaskname) {
-    this._taskname = newtaskname;
-  }
-
-  get taskdate() {
-    return this._taskdate;
-  }
-
-  set taskdate(newtaskdate) {
-    this._taskid = newtaskdate;
-  }
-}
 
 /*************************
  * EVENT LISTENERS
@@ -284,7 +251,7 @@ function editTask(event) {
   // change modal heading
   modalHeading.innerHTML = "Edit task";
   // change edit option variable values
-  editId = element.dataset.id;
+  editID = element.dataset.id;
   editFlag = true;
   // modal open
   modalOpen();
