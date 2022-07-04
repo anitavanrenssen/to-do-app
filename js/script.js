@@ -184,8 +184,9 @@ function renderTasks(taskArray) {
     listElement.setAttributeNode(attr);
 
     // add user input to list element
-    listElement.innerHTML = `
-    <div class="list-task-text">
+    listElement.innerHTML =
+      /*html*/
+      `<div class="list-task-text">
       <p class="task-heading-text">${newTask._taskname}</p>
       <p class="task-date-text">${newTask._taskdate}</p>
     </div>
@@ -252,6 +253,17 @@ function deleteTask(taskid) {
     return newTask._taskid != taskid;
   });
   addToLocalStorage(taskArray);
+
+  // let taskArray = JSON.parse(localStorage.getItem(TODO_APP_KEY));
+
+  // // remove selected product from array
+  // taskArray = taskArray.filter(function (newTask) {
+  //   return newTask._taskid != taskid;
+  // });
+
+  // // add updated array to local storage
+  // localStorage.setItem(TODO_APP_KEY, JSON.stringify(taskArray));
+
   if (taskList.children.length === 0) {
     footerBtns.classList.add("hidden");
   }
