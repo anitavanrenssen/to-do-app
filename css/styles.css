@@ -150,21 +150,22 @@ body {
   align-items: center;
   justify-content: start;
   background-color: #fff;
-  gap: 32px;
-  padding: 14px 14px 14px 24px;
+  padding-left: 24px;
   border-radius: 10px 0 0 10px;
-  text-transform: capitalize;
   cursor: pointer;
 }
 
-.task-heading-text {
-  font-size: 18px;
+.task-text {
+  text-transform: capitalize;
+  font-size: 16px;
   max-width: 270px;
+  border: none;
+  color: #3a4a54;
 }
 
-.task-date-text {
+.task-date {
   color: #999;
-  font-size: 12px;
+  border: none;
 }
 
 /*********** TASK BUTTONS ***********/

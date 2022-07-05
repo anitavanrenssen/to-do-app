@@ -34,12 +34,6 @@ const footerBtns = document.querySelector("#editlist-btns");
 const clearListBtn = document.querySelector("#clearlist-btn");
 const sortListBtn = document.querySelector("#sortlist-btn");
 
-// edit option
-let editTaskEl = "";
-let editTaskDateEl = "";
-let editFlag = false;
-let editID = "";
-
 // empty array for new Task objects
 let taskArray = [];
 
@@ -96,8 +90,8 @@ function addTask(id, name, date) {
   // input instruction set to none
   noValue.innerHTML = "";
 
-  // if task input field is not empty and no task is not being edited
-  if (name !== "" && !editFlag) {
+  // if task input field is not empty and no task is being edited
+  if (name !== "" && date !== "") {
     // instantiate new object
     let newTask = new Task(id, name, date);
 
@@ -116,20 +110,13 @@ function addTask(id, name, date) {
     // set back to default
     setBackToDefault();
 
-    // if task input field is not empty and task is being edited
-  } else if (name !== "" && editFlag) {
-    editTaskEl.innerHTML = taskInputField.value;
-    editTaskDateEl.innerHTML = taskdateInputField.value;
-
-    // modal close
-    modalClose();
-
-    // set back to default
-    setBackToDefault();
-
     // if task input field is empty
-  } else if (name === "") {
+  } else if (name === "" && date !== "") {
     noValue.innerHTML = "Please enter a task";
+  } else if (date === "" && name !== "") {
+    noValue.innerHTML = "Please enter a date";
+  } else if (date === "" && name === "") {
+    noValue.innerHTML = "Please enter a task and date";
   } else {
     noValue.innerHTML = "";
   }
@@ -154,8 +141,12 @@ function renderTasks(taskArray) {
     listElement.innerHTML =
       /*html*/
       `<div class="list-task-text">
-      <p class="task-heading-text">${newTask._taskname}</p>
-      <p class="task-date-text">${newTask._taskdate}</p>
+      <label>
+              <input type="checkbox" />
+              <span class="bubble"></span>
+            </label>
+        <input type="text" class="task-text" value="${newTask._taskname}" readonly>
+        <input type="datetime-local" class="task-date" value="${newTask._taskdate}" readonly/>
     </div>
     
     <div class="list-task-btns">
@@ -221,16 +212,6 @@ function deleteTask(taskid) {
   });
   addToLocalStorage(taskArray);
 
-  // let taskArray = JSON.parse(localStorage.getItem(TODO_APP_KEY));
-
-  // // remove selected product from array
-  // taskArray = taskArray.filter(function (newTask) {
-  //   return newTask._taskid != taskid;
-  // });
-
-  // // add updated array to local storage
-  // localStorage.setItem(TODO_APP_KEY, JSON.stringify(taskArray));
-
   if (taskList.children.length === 0) {
     footerBtns.classList.add("hidden");
   }
@@ -240,21 +221,34 @@ function deleteTask(taskid) {
 /********** Edit task in list **********/
 function editTask(event) {
   const element = event.currentTarget.parentElement.parentElement;
-  // select paragraph elements containing task name and date
-  editTaskEl =
+  const editTaskEl =
     event.currentTarget.parentElement.previousElementSibling.children[0];
-  editTaskDateEl =
+  editTaskEl.removeAttribute("readonly");
+  editTaskEl.focus();
+  editTaskEl.addEventListener("blur", (e) => {
+    editTaskEl.setAttribute("readonly", true);
+
+    let updateTask = taskArray.find(function (newTask) {
+      return newTask._taskid == element.dataset.id;
+    });
+    updateTask._taskname = e.target.value;
+    addToLocalStorage(taskArray);
+  });
+
+  const editTaskDateEl =
     event.currentTarget.parentElement.previousElementSibling.children[1];
-  // set input value to task name and date before edit
-  taskInputField.value = editTaskEl.innerHTML;
-  taskdateInputField.value = editTaskDateEl.innerHTML;
-  // change modal heading
-  modalHeading.innerHTML = "Edit task";
-  // change edit option variable values
-  editID = element.dataset.id;
-  editFlag = true;
-  // modal open
-  modalOpen();
+
+  editTaskDateEl.removeAttribute("readonly");
+  // editTaskDateEl.focus();
+  editTaskDateEl.addEventListener("blur", (e) => {
+    editTaskDateEl.setAttribute("readonly", true);
+
+    let updateTask = taskArray.find(function (newTask) {
+      return newTask._taskid == element.dataset.id;
+    });
+    updateTask._taskdate = e.target.value;
+    addToLocalStorage(taskArray);
+  });
 }
 
 /********** Set modal back to default **********/
