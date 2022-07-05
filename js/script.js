@@ -142,10 +142,9 @@ function renderTasks(taskArray) {
     listElement.innerHTML =
       /*html*/
       `<div class="list-task-text">
-      <label>
-              <input type="checkbox" class="checkbox" />
-              
-            </label>
+        <label>
+          <input type="checkbox" class="checkbox" />    
+        </label>
         <input type="text" class="task-text" value="${newTask._taskname}" readonly>
         <input type="datetime-local" class="task-date" value="${newTask._taskdate}" readonly/>
     </div>
@@ -199,6 +198,9 @@ getFromLocalStorage();
 
 /********** Clear task list **********/
 function clearList() {
+  // clear local storage
+  localStorage.removeItem(TODO_APP_KEY);
+
   const tasksAll = document.querySelectorAll(".list-item");
 
   if (tasksAll.length > 0) {
@@ -208,9 +210,6 @@ function clearList() {
 
     // set back to default
     setBackToDefault();
-
-    // clear local storage
-    localStorage.removeItem("todo-app-storage-key");
   }
 
   // hide footer buttons
