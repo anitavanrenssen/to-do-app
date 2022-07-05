@@ -1,7 +1,7 @@
 @media (max-width: 562px) {
-  .header {
+  /* .header {
     height: 155px;
-  }
+  } */
 
   .deletetask-icon,
   .edittask-icon {
@@ -9,11 +9,27 @@
     height: 14px;
     padding: 0 4px 0 4px;
   }
+
+  .deletetask-btn {
+    margin: 3px 0 0 3px;
+    border-radius: 0 0 10px 0;
+  }
+
+  .edittask-btn {
+    margin-left: 3px;
+    border-radius: 0 10px 0 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .task-text {
+    max-width: 240px;
+  }
 }
 
 @media (max-width: 440px) {
   .header {
-    height: 130px;
+    /* height: 130px; */
     align-items: start;
     padding-left: 42px;
   }
@@ -39,23 +55,21 @@
     height: 40px;
   }
 
-  .deletetask-btn {
-    margin: 3px 0 0 3px;
-    border-radius: 0 0 10px 0;
-  }
-
-  .edittask-btn {
-    margin-left: 3px;
-    border-radius: 0 10px 0 0;
-  }
-
   .list-item {
     grid-template-columns: 6fr 1fr;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 350px) {
+  .header {
+    height: 150px;
+  }
+
+  .header-title {
+    font-size: 32px;
+  }
+
   .illustration {
-    max-width: 32%;
+    max-width: 130px;
   }
 }

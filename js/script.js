@@ -19,7 +19,6 @@ const appWindow = document.querySelector(".app-box");
 
 // modal
 const dialog = document.querySelector("#modal");
-const modalHeading = document.querySelector("#modal-heading");
 const taskInputField = document.querySelector("#task-input");
 const taskdateInputField = document.querySelector("#taskdate-input");
 const noValue = document.querySelector("#no-value");
@@ -32,7 +31,7 @@ const taskList = document.querySelector("#task-list");
 const addTaskBtn = document.querySelector("#addtask-btn");
 const footerBtns = document.querySelector("#editlist-btns");
 const clearListBtn = document.querySelector("#clearlist-btn");
-const sortListBtn = document.querySelector("#sortlist-btn");
+// const sortListBtn = document.querySelector("#sortlist-btn");
 
 // empty array for new Task objects
 let taskArray = [];
@@ -62,7 +61,7 @@ dialog.addEventListener("submit", function (event) {
 clearListBtn.addEventListener("click", clearList);
 
 // sort tasks alphabetically
-sortListBtn.addEventListener("click", sortList);
+// sortListBtn.addEventListener("click", sortList);
 
 // delete task
 taskList.addEventListener("click", function (event) {
@@ -75,9 +74,9 @@ taskList.addEventListener("click", function (event) {
 
 // display footer buttons
 window.addEventListener("DOMContentLoaded", () => {
-  if (taskArray !== []) {
+  if (taskArray.length > 0) {
     footerBtns.classList.remove("hidden");
-  } else if (taskArray === []) {
+  } else {
     footerBtns.classList.add("hidden");
   }
 });
@@ -198,15 +197,15 @@ getFromLocalStorage();
 
 /********** Clear task list **********/
 function clearList() {
-  // clear local storage
-  localStorage.removeItem(TODO_APP_KEY);
-
   const tasksAll = document.querySelectorAll(".list-item");
 
   if (tasksAll.length > 0) {
     tasksAll.forEach(function (listItem) {
       taskList.removeChild(listItem);
     });
+
+    // clear local storage
+    localStorage.removeItem(TODO_APP_KEY);
 
     // set back to default
     setBackToDefault();
@@ -217,11 +216,26 @@ function clearList() {
 }
 
 /********** Sort list alphabetically **********/
-function sortList() {
-  [...taskList.children]
-    .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
-    .forEach((node) => taskList.appendChild(node));
-}
+// function sortList() {
+//   // [...taskList.children]
+//   //   .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
+//   //   .forEach((node) => taskList.appendChild(node));
+
+//   // const toDateArray = taskArray.map((obj) => {
+//   //   return { ...obj, _taskdate: new Date(obj._taskdate) };
+//   // });
+
+//   // taskArray = toDateArray.sort((objA, objB) => objA._taskdate - objB._taskdate);
+
+//   // taskArray = taskArray.map((obj) => {
+//   //   return { ...obj, _taskdate: obj._taskdate.toString() };
+//   // });
+//   // console.log(taskArray);
+
+//   // taskArray = taskArray.sort(
+//   //   (objA, objB) => Number(objA._taskdate) - Number(objB._taskdate)
+//   // );
+// }
 
 /********** Delete task from list **********/
 function deleteTask(taskid) {
@@ -239,10 +253,13 @@ function deleteTask(taskid) {
 /********** Edit task in list **********/
 function editTask(event) {
   const element = event.currentTarget.parentElement.parentElement;
+
   const editTaskEl =
     event.currentTarget.parentElement.previousElementSibling.children[1];
+
   editTaskEl.removeAttribute("readonly");
-  editTaskEl.focus();
+  editTaskEl.classList.add("edit-color");
+  // editTaskEl.focus();
   editTaskEl.addEventListener("blur", (e) => {
     editTaskEl.setAttribute("readonly", true);
 
@@ -250,6 +267,7 @@ function editTask(event) {
       return newTask._taskid == element.dataset.id;
     });
     updateTask._taskname = e.target.value;
+    editTaskEl.classList.remove("edit-color");
     addToLocalStorage(taskArray);
   });
 
@@ -257,6 +275,7 @@ function editTask(event) {
     event.currentTarget.parentElement.previousElementSibling.children[2];
 
   editTaskDateEl.removeAttribute("readonly");
+  editTaskDateEl.classList.add("edit-color");
   // editTaskDateEl.focus();
   editTaskDateEl.addEventListener("blur", (e) => {
     editTaskDateEl.setAttribute("readonly", true);
@@ -265,6 +284,7 @@ function editTask(event) {
       return newTask._taskid == element.dataset.id;
     });
     updateTask._taskdate = e.target.value;
+    editTaskDateEl.classList.remove("edit-color");
     addToLocalStorage(taskArray);
   });
 }
@@ -273,9 +293,6 @@ function editTask(event) {
 function setBackToDefault() {
   taskInputField.value = "";
   taskdateInputField.value = "";
-  editFlag = false;
-  editID = "";
-  modalHeading.innerHTML = "Add new task";
 }
 
 /********** Modal open **********/

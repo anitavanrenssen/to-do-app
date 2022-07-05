@@ -4,19 +4,19 @@
   margin: 0;
 }
 
-body {
+/* body {
   background-color: #95af91;
-}
+} */
 
 /*********** APPLICATION BOX ***********/
 
 .app-box {
   background-color: #dadee0;
   color: #3a4a54;
-  max-width: 600px;
+  /* max-width: 600px; */
   min-height: 100vh;
   margin: auto;
-  box-shadow: 0 2px 32px 0px rgba(0, 0, 0, 0.301);
+  /* box-shadow: 0 2px 32px 0px rgba(0, 0, 0, 0.301); */
 }
 
 /*********** HEADER ***********/
@@ -48,7 +48,7 @@ body {
   position: absolute;
   right: 0;
   top: 3%;
-  max-width: 28%;
+  max-width: 160px;
 }
 
 /*********** MODAL ***********/
@@ -173,6 +173,14 @@ label {
 
 .checkbox {
   cursor: pointer;
+}
+
+input[type="checkbox"] {
+  accent-color: #3a4a54;
+}
+
+.edit-color {
+  color: rgb(149, 175, 145, 0.9);
 }
 
 /*********** TASK BUTTONS ***********/
