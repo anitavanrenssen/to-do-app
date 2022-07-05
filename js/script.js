@@ -53,7 +53,8 @@ dialog.addEventListener("submit", function (event) {
   addTask(
     new Date().getTime().toString(),
     taskInputField.value,
-    taskdateInputField.value
+    taskdateInputField.value,
+    false
   );
 });
 
@@ -86,14 +87,14 @@ window.addEventListener("DOMContentLoaded", () => {
  ********************/
 
 /********** Add new task **********/
-function addTask(id, name, date) {
+function addTask(id, name, date, completed) {
   // input instruction set to none
   noValue.innerHTML = "";
 
   // if task input field is not empty and no task is being edited
   if (name !== "" && date !== "") {
     // instantiate new object
-    let newTask = new Task(id, name, date);
+    let newTask = new Task(id, name, date, completed);
 
     // add object to task array
     taskArray.push(newTask);
@@ -142,8 +143,8 @@ function renderTasks(taskArray) {
       /*html*/
       `<div class="list-task-text">
       <label>
-              <input type="checkbox" />
-              <span class="bubble"></span>
+              <input type="checkbox" class="checkbox" />
+              
             </label>
         <input type="text" class="task-text" value="${newTask._taskname}" readonly>
         <input type="datetime-local" class="task-date" value="${newTask._taskdate}" readonly/>
@@ -159,8 +160,11 @@ function renderTasks(taskArray) {
     </div>`;
 
     // variables and event listeners created after new task created
+    const checkBox = listElement.querySelector(".checkbox");
     const taskText = listElement.querySelector(".list-task-text");
     const editBtn = listElement.querySelector("#edittask-btn");
+
+    checkBox.checked = newTask._taskcompleted;
 
     // edit task
     editBtn.addEventListener("click", editTask);
@@ -168,10 +172,25 @@ function renderTasks(taskArray) {
     // add list element to DOM
     taskList.appendChild(listElement);
 
+    if (newTask._taskcompleted) {
+      taskText.classList.add("list-item-completed");
+      listElement.classList.add("completed");
+    }
+
     // task completed
-    taskText.addEventListener("click", function () {
-      taskText.classList.toggle("list-item-completed");
-      listElement.classList.toggle("completed");
+    checkBox.addEventListener("click", function (e) {
+      newTask._taskcompleted = e.target.checked;
+      localStorage.setItem(TODO_APP_KEY, JSON.stringify(taskArray));
+
+      if (newTask._taskcompleted) {
+        taskText.classList.add("list-item-completed");
+        listElement.classList.add("completed");
+      } else {
+        taskText.classList.remove("list-item-completed");
+        listElement.classList.remove("completed");
+      }
+
+      renderTasks(taskArray);
     });
   });
 }
@@ -222,7 +241,7 @@ function deleteTask(taskid) {
 function editTask(event) {
   const element = event.currentTarget.parentElement.parentElement;
   const editTaskEl =
-    event.currentTarget.parentElement.previousElementSibling.children[0];
+    event.currentTarget.parentElement.previousElementSibling.children[1];
   editTaskEl.removeAttribute("readonly");
   editTaskEl.focus();
   editTaskEl.addEventListener("blur", (e) => {
@@ -236,7 +255,7 @@ function editTask(event) {
   });
 
   const editTaskDateEl =
-    event.currentTarget.parentElement.previousElementSibling.children[1];
+    event.currentTarget.parentElement.previousElementSibling.children[2];
 
   editTaskDateEl.removeAttribute("readonly");
   // editTaskDateEl.focus();

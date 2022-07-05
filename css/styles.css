@@ -152,7 +152,6 @@ body {
   background-color: #fff;
   padding-left: 24px;
   border-radius: 10px 0 0 10px;
-  cursor: pointer;
 }
 
 .task-text {
@@ -166,6 +165,14 @@ body {
 .task-date {
   color: #999;
   border: none;
+}
+
+label {
+  padding-right: 12px;
+}
+
+.checkbox {
+  cursor: pointer;
 }
 
 /*********** TASK BUTTONS ***********/

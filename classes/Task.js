@@ -1,8 +1,9 @@
 export class Task {
-  constructor(taskid, taskname, taskdate) {
+  constructor(taskid, taskname, taskdate, taskcompleted) {
     this._taskid = taskid;
     this._taskname = taskname;
     this._taskdate = taskdate;
+    this._taskcompleted = taskcompleted;
   }
   get taskid() {
     return this._taskid;
@@ -25,6 +26,14 @@ export class Task {
   }
 
   set taskdate(newtaskdate) {
-    this._taskid = newtaskdate;
+    this._taskdate = newtaskdate;
+  }
+
+  get taskcompleted() {
+    return this._taskcompleted;
+  }
+
+  set taskcompleted(newtaskcompleted) {
+    this._taskcompleted = newtaskcompleted;
   }
 }
