@@ -1,8 +1,4 @@
 @media (max-width: 562px) {
-  /* .header {
-    height: 155px;
-  } */
-
   .deletetask-icon,
   .edittask-icon {
     width: 14px;
@@ -29,7 +25,6 @@
 
 @media (max-width: 440px) {
   .header {
-    /* height: 130px; */
     align-items: start;
     padding-left: 42px;
   }

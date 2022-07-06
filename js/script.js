@@ -40,13 +40,10 @@ let taskArray = [];
  * EVENT LISTENERS
  *************************/
 
-// modal open
 addTaskBtn.addEventListener("click", modalOpen);
 
-// modal close
 exitBtn.addEventListener("click", modalClose);
 
-// add new task
 dialog.addEventListener("submit", function (event) {
   event.preventDefault();
   addTask(
@@ -57,13 +54,11 @@ dialog.addEventListener("submit", function (event) {
   );
 });
 
-// clear task list
 clearListBtn.addEventListener("click", clearList);
 
 // sort tasks alphabetically
 // sortListBtn.addEventListener("click", sortList);
 
-// delete task
 taskList.addEventListener("click", function (event) {
   if (event.target.classList.contains("deletetask-btn")) {
     deleteTask(
@@ -90,27 +85,18 @@ function addTask(id, name, date, completed) {
   // input instruction set to none
   noValue.innerHTML = "";
 
-  // if task input field is not empty and no task is being edited
+  // if task input fields are not empty
   if (name !== "" && date !== "") {
     // instantiate new object
     let newTask = new Task(id, name, date, completed);
 
-    // add object to task array
     taskArray.push(newTask);
-
-    // add to local storage
     addToLocalStorage(taskArray);
-
-    // modal close
     modalClose();
-
-    // display footer buttons
     footerBtns.classList.remove("hidden");
-
-    // set back to default
     setBackToDefault();
 
-    // if task input field is empty
+    // if task input fields are empty
   } else if (name === "" && date !== "") {
     noValue.innerHTML = "Please enter a task";
   } else if (date === "" && name !== "") {
@@ -128,11 +114,8 @@ function renderTasks(taskArray) {
   taskList.innerHTML = "";
 
   taskArray.forEach(function (newTask) {
-    // create new list element
     const listElement = document.createElement("li");
-    // add class
     listElement.classList.add("list-item");
-    // add id
     const attr = document.createAttribute("data-id");
     attr.value = newTask._taskid;
     listElement.setAttributeNode(attr);
@@ -163,8 +146,6 @@ function renderTasks(taskArray) {
     const editBtn = listElement.querySelector("#edittask-btn");
 
     checkBox.checked = newTask._taskcompleted;
-
-    // edit task
     editBtn.addEventListener("click", editTask);
 
     // add list element to DOM
@@ -204,10 +185,7 @@ function clearList() {
       taskList.removeChild(listItem);
     });
 
-    // clear local storage
     localStorage.removeItem(TODO_APP_KEY);
-
-    // set back to default
     setBackToDefault();
   }
 
@@ -217,24 +195,9 @@ function clearList() {
 
 /********** Sort list alphabetically **********/
 // function sortList() {
-//   // [...taskList.children]
-//   //   .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
-//   //   .forEach((node) => taskList.appendChild(node));
-
-//   // const toDateArray = taskArray.map((obj) => {
-//   //   return { ...obj, _taskdate: new Date(obj._taskdate) };
-//   // });
-
-//   // taskArray = toDateArray.sort((objA, objB) => objA._taskdate - objB._taskdate);
-
-//   // taskArray = taskArray.map((obj) => {
-//   //   return { ...obj, _taskdate: obj._taskdate.toString() };
-//   // });
-//   // console.log(taskArray);
-
-//   // taskArray = taskArray.sort(
-//   //   (objA, objB) => Number(objA._taskdate) - Number(objB._taskdate)
-//   // );
+//   [...taskList.children]
+//     .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
+//     .forEach((node) => taskList.appendChild(node));
 // }
 
 /********** Delete task from list **********/
